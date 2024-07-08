@@ -1,0 +1,27 @@
+name: scp files
+on: 
+  push:
+    branches:
+      - main
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+    - name: scp ssh pipelines
+      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+      env:
+        LASTSSH: "SCP完成后重新部署项目"
+      with:
+        host: ${{ secrets.HOST }}
+        user: ${{ secrets.USERNAME }}
+        pass: ${{ secrets.PASSWORD }}
+        scp: |
+          ./* => /ixyz/blog
+        last_ssh: |
+          echo $LASTSSH 
+          cd /ixyz/blog
+          docker compose down
+          docker compose up -d

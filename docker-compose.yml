@@ -1,0 +1,36 @@
+version: '3'
+services:
+  blog:
+    image: blog
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - /ixyz/blog/img_upload:/app/public/img_upload
+    restart: unless-stopped
+
+  # twikoo:
+  #   image: imaegoo/twikoo
+  #   container_name: msg-board
+  #   restart: unless-stopped
+  #   ports:
+  #     - 9090:8080
+  #   environment:
+  #     TWIKOO_THROTTLE: 1000
+  #   volumes:
+  #     - /ixyz/msg-board:/app/data
+  
+  # nginx:
+  #   image: nginx
+  #   container_name: nginx
+  #   restart: unless-stopped
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     - /ixyz/nginx/html:/usr/share/nginx/html
+  #     - /ixyz/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+  #     - /root/.acme.sh/ixyz.org_ecc:/etc/nginx/ssl
+  #     - /ixyz/blog/public/img_upload:/ixyz/blog/public/img_upload
